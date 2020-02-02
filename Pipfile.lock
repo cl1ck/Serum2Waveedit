@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "905e3f5efb893d7bdb6e81c23d9e65e1dc2da12227a5f437bc119c26443579c1"
+            "sha256": "da25750e2fe359313897b81ab6b87cbf2400fa2b3251bf00a6590e9e76f48182"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -220,6 +220,17 @@
                 "sha256:8f3cd2e254d8f793e7f3d6d9df77b92252b52637291d0f0da013c76ea2724b6c"
             ],
             "version": "==1.14.0"
+        },
+        "soundfile": {
+            "hashes": [
+                "sha256:2d17e0a6fc2af0d6c1d868bafa5ec80aae6e186a97fec8db07ad6af29842fbc7",
+                "sha256:4555438c2c4f02b39fea2ed40f6ddeda88a80cd1ee9dd129be4d5f5134698cc2",
+                "sha256:490cff42650733d1832728b937fe99fa1802896f5ef4d61bcf78cf7ebecb107b",
+                "sha256:5e342ee293b896d31da67617fe65d0bdca217af193991b0cb6052353b1e0e506",
+                "sha256:b361d4ac1519a2e516cabafa6bf7e93492f999f35d7d25350cd87fdc3e5cb27e"
+            ],
+            "index": "pypi",
+            "version": "==0.10.3.post1"
         },
         "wave": {
             "hashes": [
