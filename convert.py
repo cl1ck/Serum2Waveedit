@@ -45,10 +45,12 @@ def save_as_waveedit(waves, filename):
     table = wavetable.WaveTable(WAVEEDIT_NUM_SLOTS, wave_len=WAVEEDIT_WAVE_LENGTH)
     table.waves = waves
     path, file = os.path.split(filename)
+
     if os.path.isfile(filename):
         os.remove(filename)
     if not os.path.exists(path):
         os.makedirs(path, exist_ok=True)
+
     table.to_wav(filename, SAMPLE_RATE)
 
 
@@ -74,6 +76,7 @@ def convert_wav_to_table(input_filename):
 def convert_serum_to_waveedit(serum_filename, output_filename):
     # get 64 waves evenly selected from the input wavetable
     input_table = convert_wav_to_table(serum_filename)
+
     idx = np.round(np.linspace(0, len(input_table.waves) - 1, WAVEEDIT_NUM_SLOTS)).astype(np.int16)
     selected_waves = list(np.array(input_table.waves)[idx])
 
@@ -83,17 +86,3 @@ def convert_serum_to_waveedit(serum_filename, output_filename):
 
     # save as waveedit bank
     save_as_waveedit(downsampled_waves, output_filename)
-
-    return output_filename
-
-
-def plot_waveedit_file(wav_filename):
-    filename, file_extension = os.path.splitext(wav_filename)
-    png_filename = filename + '.png'
-    visualize.plot_wavetable(
-        wavetable.WaveTable(WAVEEDIT_NUM_SLOTS, wave_len=WAVEEDIT_WAVE_LENGTH)
-                 .from_wav(wav_filename, resynthesize=False),
-        title=filename,
-        save=png_filename
-    )
-

@@ -7,6 +7,11 @@ def main():
     cwd = os.getcwd()
     input_dir = cwd + '/serum'
     output_dir = cwd + '/converted'
+
+    output_files = glob.glob(output_dir + '/**/*.wav', recursive=True)
+    for file in output_files:
+        os.remove(file)
+
     input_files = glob.glob(input_dir + '/**/*.wav', recursive=True)
     for file in input_files:
         rel_file = file.replace(input_dir + '/', '')
