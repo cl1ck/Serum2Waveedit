@@ -1,6 +1,6 @@
-from osc_gen import wavetable, visualize
 import scipy.io.wavfile
 import scipy.signal
+from osc_gen import wavetable, visualize
 import numpy as np
 import os
 import io
@@ -46,8 +46,6 @@ def save_as_waveedit(waves, filename):
     table.waves = waves
     path, file = os.path.split(filename)
 
-    if os.path.isfile(filename):
-        os.remove(filename)
     if not os.path.exists(path):
         os.makedirs(path, exist_ok=True)
 

@@ -5,11 +5,13 @@ name = "pypi"
 
 [packages]
 osc-gen = "*"
-matplotlib = "*"
+matplotlib = "==3.0.3"
 Wave = "*"
 scipy = "*"
 numpy = "*"
 soundfile = "*"
+pyinstaller = "*"
+setuptools = "<45"
 
 [dev-packages]
 
