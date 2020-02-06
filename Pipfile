@@ -9,6 +9,7 @@ matplotlib = "*"
 Wave = "*"
 scipy = "*"
 numpy = "*"
+soundfile = "*"
 
 [dev-packages]
 
