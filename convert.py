@@ -5,7 +5,6 @@ import numpy as np
 import os
 import io
 import struct
-import sys
 
 SAMPLE_RATE = 44100
 SERUM_WAVE_LENGTH = 2048
@@ -43,12 +42,15 @@ def downsample(samples, downsampling_factor):
 def save_as_waveedit(waves, filename):
     table = wavetable.WaveTable(WAVEEDIT_NUM_SLOTS, wave_len=WAVEEDIT_WAVE_LENGTH)
     table.waves = waves
+    path, file = os.path.split(filename)
     if os.path.isfile(filename):
         os.remove(filename)
+    if not os.path.exists(path):
+        os.makedirs(path, exist_ok=True)
     table.to_wav(filename, SAMPLE_RATE)
 
 
-def convert_wav_to_16bit(input_filename):
+def convert_wav_to_table(input_filename):
     filename, file_extension = os.path.splitext(input_filename)
     temp_filename = filename + '_16bit' + file_extension
 
@@ -67,9 +69,9 @@ def convert_wav_to_16bit(input_filename):
     return table
 
 
-def convert_serum_to_waveedit(serum_filename):
+def convert_serum_to_waveedit(serum_filename, output_filename):
     # get 64 waves evenly selected from the input wavetable
-    input_table = convert_wav_to_16bit(serum_filename)
+    input_table = convert_wav_to_table(serum_filename)
     idx = np.round(np.linspace(0, len(input_table.waves) - 1, WAVEEDIT_NUM_SLOTS)).astype(np.int16)
     selected_waves = list(np.array(input_table.waves)[idx])
 
@@ -78,8 +80,6 @@ def convert_serum_to_waveedit(serum_filename):
     downsampled_waves = [downsample(samples, downsampling_factor) for samples in selected_waves]
 
     # save as waveedit bank
-    filename, file_extension = os.path.splitext(serum_filename)
-    output_filename = filename + '_converted' + file_extension
     save_as_waveedit(downsampled_waves, output_filename)
 
     return output_filename
@@ -95,15 +95,3 @@ def plot_waveedit_file(wav_filename):
         save=png_filename
     )
 
-
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: {0} SERUM_WAV_FILE".format(sys.argv[0]))
-        exit()
-
-    converted_filename = convert_serum_to_waveedit(sys.argv[1])
-    plot_waveedit_file(converted_filename)
-
-
-if __name__ == '__main__':
-    main()
